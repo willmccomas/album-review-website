@@ -1,0 +1,6 @@
+__pycache__/
+.cache
+.vscode/
+.venv/
+.env
+Music Ranking App Log.docx

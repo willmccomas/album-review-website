@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>{{ album.title }}</title>
+
+    <style>
+        body {
+            background: linear-gradient(
+                135deg,
+                var(--album-color),
+                #111111
+            );
+            text-align: center;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .review-card {
+            background: rgba(0, 0, 0, 0.65);
+            padding: 30px;
+            border-radius: 20px;
+            width: 400px;
+            margin: 50px auto;
+        }
+
+        img {
+            border-radius: 10px;
+        }
+
+        h1, h2, p {
+            text-shadow: 2px 2px 8px black;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body style="--album-color: {{ color }};">
+
+    <div class="review-card">
+
+        <h1>{{ album.title }}</h1>
+
+        <h2>{{ album.artist }}</h2>
+
+        <img src="{{ spotify.art }}" width="300">
+
+        <p>Rating: {{ album.rating }}/10</p>
+
+        <p>Released: {{ spotify.release_date }}</p>
+
+        <p>Total Tracks: {{ spotify.total_tracks }}</p>
+
+        <a href="{{ spotify.url }}" target="_blank">
+            <button>Open on Spotify</button>
+        </a>
+
+        <a href="{{ url_for('albums_page') }}">
+            <button>Back to Albums</button>
+        </a>
+
+    </div>
+
+</body>
+</html>
