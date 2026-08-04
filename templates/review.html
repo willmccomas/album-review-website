@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>{{ album.title }}</title>
+    <title>{{ spotify.name }}</title>
 
     <style>
         body {
@@ -44,13 +44,11 @@
 
     <div class="review-card">
 
-        <h1>{{ album.title }}</h1>
+        <h1>{{ spotify.name }}</h1>
 
-        <h2>{{ album.artist }}</h2>
+        <h2>{{ spotify.artist }}</h2>
 
         <img src="{{ spotify.art }}" width="300">
-
-        <p>Rating: {{ album.rating }}/10</p>
 
         <p>Released: {{ spotify.release_date }}</p>
 
@@ -60,8 +58,8 @@
             <button>Open on Spotify</button>
         </a>
 
-        <a href="{{ url_for('albums_page') }}">
-            <button>Back to Albums</button>
+        <a href="{{ url_for('home') }}">
+            <button>Back to Home</button>
         </a>
 
     </div>

@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Search Results</title>
+    </head>
+
+    <body>
+        <h1>Results</h1>
+
+        {% for album in albums %}
+
+        <div>
+            <img src="{{ album.art }}" width="200">
+
+            <h2>{{ album.name }}</h2>
+
+            <p>{{ album.artist }}</p>
+
+            <p>{{ album.id }}</p>
+
+            <a href="/album/{{ album.id }}">
+                <button>Rank this album</button>
+            </a>
+        </div>
+
+        {% endfor %}
+    </body>
+</html>

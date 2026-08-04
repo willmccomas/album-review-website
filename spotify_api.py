@@ -13,25 +13,47 @@ spotify = spotipy.Spotify(
     )
 )
 
-def get_album(title, artist):
-    query = f"album:{title} artist:{artist}"
-    results = spotify.search(q=query, type="album", limit=1)
+def get_album(album_id):
+    album = spotify.album(album_id)
+
+    album_name = album['name']
+    album_artist = album['artists'][0]['name']
+    album_release_date = album['release_date']
+    album_total_tracks = album['total_tracks']
+    album_url = album['external_urls']['spotify']
+    album_art = album['images'][0]['url']
+    album_id = album['id']
+
+    return {
+        "name": album_name,
+        "artist": album_artist,
+        "release_date": album_release_date,
+        "total_tracks": album_total_tracks,
+        "url": album_url,
+        "art": album_art,
+        "id": album_id
+    }
+
+def search_albums(query):
+    results = spotify.search(q=query, type="album", limit=10)
     album_results = results['albums']['items']
-    if album_results:
-        album = album_results[0]
+    albums = []
+
+    for album in album_results:
         album_name = album['name']
         album_artist = album['artists'][0]['name']
         album_release_date = album['release_date']
         album_total_tracks = album['total_tracks']
         album_url = album['external_urls']['spotify']
         album_art = album['images'][0]['url']
-        return {
+        album_id = album['id']
+        albums.append({
             "name": album_name,
             "artist": album_artist,
             "release_date": album_release_date,
             "total_tracks": album_total_tracks,
             "url": album_url,
-            "art": album_art
-        }
-    else:
-        return None
+            "art": album_art,
+            "id": album_id
+        })
+    return albums
