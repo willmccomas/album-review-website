@@ -9,6 +9,7 @@ A Flask-based web application that allows users to view and review albums using 
 - Automatic album artwork retrieval
 - Dominant color extraction from album covers
 - Dynamic album-themed backgrounds
+- User album search
 
 ## Technologies Used
 
@@ -22,7 +23,6 @@ A Flask-based web application that allows users to view and review albums using 
 
 ## Future Improvements
 
-- User album search
 - User accounts
 - Database for storing reviews
 - Rating system

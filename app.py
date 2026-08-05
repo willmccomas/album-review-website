@@ -27,6 +27,9 @@ def rank():
 def search():
     query = request.args.get("query")
 
+    if not query or not query.strip():
+        return render_template('rank.html')
+
     results = search_albums(query)
 
     return render_template('search_results.html', albums=results)

@@ -17,7 +17,7 @@ def get_album(album_id):
     album = spotify.album(album_id)
 
     album_name = album['name']
-    album_artist = album['artists'][0]['name']
+    album_artist = format_artists(album["artists"])
     album_release_date = album['release_date']
     album_total_tracks = album['total_tracks']
     album_url = album['external_urls']['spotify']
@@ -41,7 +41,7 @@ def search_albums(query):
 
     for album in album_results:
         album_name = album['name']
-        album_artist = album['artists'][0]['name']
+        album_artist = format_artists(album["artists"])
         album_release_date = album['release_date']
         album_total_tracks = album['total_tracks']
         album_url = album['external_urls']['spotify']
@@ -57,3 +57,12 @@ def search_albums(query):
             "id": album_id
         })
     return albums
+
+def format_artists(artists):
+    names = [artist["name"] for artist in artists]
+    if len(names) == 1:
+        return names[0]
+    elif len(names) == 2:
+        return f"{names[0]} & {names[1]}"
+    else:
+        return ", ".join(names[:-1]) + f" & {names[-1]}"
