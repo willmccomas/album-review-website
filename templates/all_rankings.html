@@ -11,13 +11,13 @@
             </a>
 
             <div class="nav-links">
-                <a href="/all_rankings">Rankings</a>
+                <a href="/all_rankings">Ratings</a>
                 <a href="/search">Search</a>
             </div>
         </nav>
 
         <div class="page-container">
-            <h1>Rankings</h1>
+            <h1>Ratings</h1>
             
             <div class="album-grid">
 
@@ -26,11 +26,9 @@
                 <div class="album-card">
                     <img src="{{ album[2] }}" width="200">
 
-                    <h2>{{ album[0] }}</h2>
-                    
-                    <p class="stars">
-                        {{ star_rating(album[3]) }}
-                    </p>
+                    <h2 class="stars">
+                        {{ star_rating(album[4]) }}
+                    </h2>
                 
                 </div>
 

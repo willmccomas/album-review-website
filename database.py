@@ -10,6 +10,7 @@ def init_db():
             name TEXT,
             artist TEXT,
             art TEXT,
+            release_date TEXT,
             rating REAL,
             review TEXT
             )""")
@@ -17,19 +18,20 @@ def init_db():
     conn.commit()
     conn.close()
 
-def save_review(album_id, name, artist, art, rating, review):
+def save_review(album_id, name, artist, art, release_date, rating, review):
     conn = sqlite3.connect('reviews.db')
     cursor = conn.cursor()
     cursor.execute("""
     INSERT INTO reviews
-    (album_id, name, artist, art, rating, review)
-    VALUES (?, ?, ?, ?, ?, ?)
+    (album_id, name, artist, art, release_date, rating, review)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
     """,
     (
         album_id,
         name,
         artist,
         art,
+        release_date,
         rating,
         review
     ))
@@ -53,8 +55,9 @@ def get_all_reviews():
     conn = sqlite3.connect('reviews.db')
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT name, artist, art, rating, review
+        SELECT name, artist, art, release_date, rating, review
         FROM reviews
+        ORDER BY release_date DESC
     """)
     reviews = cursor.fetchall()
     conn.close()

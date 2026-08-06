@@ -40,7 +40,7 @@ def album_review(album_id):
     if request.method == "POST":
         rating = float(request.form.get("rating"))
         review = request.form.get("review")
-        save_review(album_id, spotify_data["name"], spotify_data["artist"], spotify_data["art"], rating, review)
+        save_review(album_id, spotify_data["name"], spotify_data["artist"], spotify_data["art"], spotify_data["release_date"], rating, review)
 
         return redirect(url_for('ranking', album_id=album_id))
 
