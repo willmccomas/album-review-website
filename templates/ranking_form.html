@@ -2,6 +2,8 @@
 <head>
     <title>{{ spotify.name }}</title>
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
     <style>
         body {
             background: linear-gradient(
@@ -41,6 +43,11 @@
 </head>
 
 <body style="--album-color: {{ color }};">
+    <nav>
+            <a href="/">Home</a>
+            <a href="/all_rankings">All Rankings</a>
+            <a href="/search">Search</a>
+    </nav>
 
     <div class="review-card">
 
@@ -61,6 +68,42 @@
         <a href="{{ url_for('home') }}">
             <button>Back to Home</button>
         </a>
+
+
+        <hr>
+
+        <h2>Rank This Album</h2>
+
+
+        <form method="POST">
+            <label>Rating (out of 5):</label>
+            <br>
+            <input
+                type="number"
+                name="rating"
+                min="0.5"
+                max="5"
+                step="0.5"
+                required
+            >
+
+            <br><br>
+
+            <label>Review:</label>
+            <br>
+
+            <textarea
+                name="review"
+                rows="5"
+                cols="40"
+                placeholder="Write your review here..."
+            ></textarea>
+
+            <br><br>
+
+            <button type="submit">Save Review</button>
+
+        </form>
 
     </div>
 

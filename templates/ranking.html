@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>{{ spotify.name }}</title>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+
+    <body>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/all_rankings">All Rankings</a>
+            <a href="/search">Search</a>
+        </nav>
+
+        <h1>{{ spotify.name }}</h1>
+
+        <h2>{{ spotify.artist }}</h2>
+
+        <h3>Your Review</h3>
+
+        {% for review in reviews %}
+            <p>Rating {{ review[0] }}/5</p>
+            <p>{{ review[1] }}</p>
+        {% endfor %}
+
+        <a href="{{ url_for('home') }}">
+            <button>Back to Home</button>
+        </a>
+    </body>
+</html>
