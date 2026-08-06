@@ -1,16 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.page-container {
+    margin: 0 auto;
+    padding: 10px 10px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #181818;
+    color: #d4d4d4;
+}
+
+h1 {
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+p {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 25px;
+}
+
+.album-card {
+    text-align: center;
+}
+
+.album-card img {
+    width: 240px;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.stars {
+    color: #d4d4d4;
+    font-size: 1.2rem;
+}
+
+.logo {
+    font-size: 2.4rem;
+    font-weight: 800;
+
+    background: linear-gradient(
+        90deg,
+        #6EE7FF,
+        #A855F7
+    );
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    cursor: pointer;
+}
+
+.sound {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.scape {
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
 nav {
+    position: sticky;
+    top: 0;
+
+    width: 100%;
+
     display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: 20px 40px;
+
+    background-color: #121212;
+    border-bottom: 1px solid #2a2a2a;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    gap: 50px;
 }
 
 nav a {
-    color: black;
+    color: #d4d4d4;
     text-decoration: none;
     font-size: 18px;
 }
 
 nav a:hover {
+    color: #ffffff;
     opacity: 0.7;
+    transition: opacity 0.3s ease;
 }

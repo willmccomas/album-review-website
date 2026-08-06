@@ -7,6 +7,9 @@ def init_db():
         CREATE TABLE IF NOT EXISTS reviews (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             album_id TEXT,
+            name TEXT,
+            artist TEXT,
+            art TEXT,
             rating REAL,
             review TEXT
             )""")
@@ -14,13 +17,22 @@ def init_db():
     conn.commit()
     conn.close()
 
-def save_review(album_id, rating, review):
+def save_review(album_id, name, artist, art, rating, review):
     conn = sqlite3.connect('reviews.db')
     cursor = conn.cursor()
     cursor.execute("""
-        INSERT INTO reviews (album_id, rating, review) 
-        VALUES (?, ?, ?)
-    """, (album_id, rating, review))
+    INSERT INTO reviews
+    (album_id, name, artist, art, rating, review)
+    VALUES (?, ?, ?, ?, ?, ?)
+    """,
+    (
+        album_id,
+        name,
+        artist,
+        art,
+        rating,
+        review
+    ))
 
     conn.commit()
     conn.close()
@@ -33,6 +45,17 @@ def get_reviews(album_id):
         FROM reviews 
         WHERE album_id = ?
     """, (album_id,))
+    reviews = cursor.fetchall()
+    conn.close()
+    return reviews
+
+def get_all_reviews():
+    conn = sqlite3.connect('reviews.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT name, artist, art, rating, review
+        FROM reviews
+    """)
     reviews = cursor.fetchall()
     conn.close()
     return reviews

@@ -6,13 +6,36 @@
     </head>
     <body>
         <nav>
-            <a href="/">Home</a>
-            <a href="/all_rankings">All Rankings</a>
-            <a href="/search">Search</a>
+            <a href="/" class="logo">
+                <span class="sound">sound</span><span class="scape">SCAPE</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="/all_rankings">Rankings</a>
+                <a href="/search">Search</a>
+            </div>
         </nav>
 
-        <h1>All Rankings</h1>
-        
-        <p>Coming soon...</p>
+        <div class="page-container">
+            <h1>Rankings</h1>
+            
+            <div class="album-grid">
+
+                {% for album in albums %}
+
+                <div class="album-card">
+                    <img src="{{ album[2] }}" width="200">
+
+                    <h2>{{ album[0] }}</h2>
+                    
+                    <p class="stars">
+                        {{ star_rating(album[3]) }}
+                    </p>
+                
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
     </body>
 </html>

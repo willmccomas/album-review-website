@@ -7,24 +7,29 @@
 
     <body>
         <nav>
-            <a href="/">Home</a>
-            <a href="/all_rankings">All Rankings</a>
-            <a href="/search">Search</a>
+            <a href="/" class="logo">
+                <span class="sound">sound</span><span class="scape">SCAPE</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="/all_rankings">Rankings</a>
+                <a href="/search">Search</a>
+            </div>
         </nav>
 
-        <h1>{{ spotify.name }}</h1>
+        <div class="page-container">
 
-        <h2>{{ spotify.artist }}</h2>
+            <h1>{{ spotify.name }}</h1>
 
-        <h3>Your Review</h3>
+            <h2>{{ spotify.artist }}</h2>
 
-        {% for review in reviews %}
-            <p>Rating {{ review[0] }}/5</p>
-            <p>{{ review[1] }}</p>
-        {% endfor %}
+            <h3>Your Review</h3>
 
-        <a href="{{ url_for('home') }}">
-            <button>Back to Home</button>
-        </a>
+            {% for review in reviews %}
+                <p>Rating {{ review[0] }}/5</p>
+                <p>{{ review[1] }}</p>
+            {% endfor %}
+        </div>
+
     </body>
 </html>

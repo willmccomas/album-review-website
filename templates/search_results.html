@@ -6,11 +6,10 @@
 
         <style>
             body {
-                font-family: Arial, sans-serif;
                 text-align: center;
             }
 
-            .album-card {
+            .album-search-card {
                 display: flex;
                 align-items: center;
                 gap: 25px;
@@ -26,35 +25,41 @@
                 overflow: hidden;
             }
 
-            .album-card img {
+            .album-search-card img {
                 border-radius: 8px;
             }
 
-            .album-card::before {
+            .album-search-card::before {
                 content: "";
                 position: absolute;
                 inset: 0;
                 background: rgba(0, 0, 0, 0.65);
             }
 
-            .album-card > * {
+            .album-search-card > * {
                 position: relative;
                 z-index: 1;
             }
 
             .album-info {
                 text-align: left;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
             }
 
-            .album-info a {
+            .album-info button {
+                font-family: 'Inter', sans-serif;
                 color: white;
+                border: none;
+                cursor: pointer;
                 text-decoration: none;
                 background-color: #333;
                 padding: 10px 15px;
                 border-radius: 8px;
             }
 
-            .album-info a:hover {
+            .album-info button:hover {
                 background-color: #555;
             }
 
@@ -63,42 +68,46 @@
 
     <body>
         <nav>
-            <a href="/">Home</a>
-            <a href="/all_rankings">All Rankings</a>
-            <a href="/search">Search</a>
+            <a href="/" class="logo">
+                <span class="sound">sound</span><span class="scape">SCAPE</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="/all_rankings">Rankings</a>
+                <a href="/search">Search</a>
+            </div>
         </nav>
 
-        <h1>Search Results</h1>
+        <div class="page-container">
 
-        <p>
-            Showing results for:
-            {{ request.args.get("query")}}
-        </p>
+            <h1>Search Results</h1>
 
-        <a href="{{ url_for('search') }}">
-            <button>Back to Search</button>
-        </a>
+            <p>
+                Showing results for:
+                {{ request.args.get("query")}}
+            </p>
 
-        {% for album in albums %}
+            {% for album in albums %}
 
-        <div class="album-card" style="background-image: url('{{ album.art }}');">
+            <div class="album-search-card" style="background-image: url('{{ album.art }}');">
 
-            <img src="{{ album.art }}" width="200">
+                <img src="{{ album.art }}" width="200">
 
-            <div class="album-info">
-                <h2>{{ album.name }}</h2>
+                <div class="album-info">
+                    <h2>{{ album.name }}</h2>
 
-                <p>{{ album.artist }}</p>
+                    <p>{{ album.artist }}</p>
 
-                <p>Release Date: {{ album.release_date }}</p>
+                    <p>Release Date: {{ album.release_date }}</p>
 
-                <a href="/album/{{ album.id }}">
-                    <button>Rank this album</button>
-                </a>
+                    <a href="/album/{{ album.id }}">
+                        <button>Rank this album</button>
+                    </a>
+                </div>
             </div>
-        </div>
 
-        {% endfor %}
+            {% endfor %}
+        </div>
 
     </body>
 </html>
