@@ -75,5 +75,20 @@ def has_reviews(album_id):
     conn.close()
     return review is not None
 
+def review_exists(album_id):
+    conn = sqlite3.connect('reviews.db')
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT 1 FROM reviews WHERE album_id = ? LIMIT 1",
+        (album_id,)
+    )
+
+    exists = cursor.fetchone() is not None
+
+    conn.close()
+
+    return exists
+
 if __name__ == "__main__":
     init_db()

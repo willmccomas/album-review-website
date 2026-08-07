@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect
 from spotify_api import get_album, search_albums
 from image_colors import get_dom_color
-from database import get_all_reviews, save_review, get_reviews
+from database import get_all_reviews, save_review, get_reviews, review_exists
 import sqlite3
 
 def star_rating(rating):
@@ -35,6 +35,9 @@ def all_rankings():
 # Album ranking form page route
 @app.route('/album/<album_id>', methods=["GET", "POST"])
 def album_review(album_id):
+    if review_exists(album_id):
+        return redirect(url_for('ranking', album_id=album_id))
+
     spotify_data = get_album(album_id)
     reviews = get_reviews(album_id)
 
@@ -55,7 +58,10 @@ def ranking(album_id):
     spotify_data = get_album(album_id)
     reviews = get_reviews(album_id)
 
-    return render_template('ranking.html', spotify=spotify_data, reviews=reviews)
+    color = get_dom_color(spotify_data['art'])
+    color = f"rgb{color}"
+
+    return render_template('ranking.html', spotify=spotify_data, reviews=reviews, color=color)
 
 # Search results page route
 @app.route('/search_results')
@@ -74,6 +80,36 @@ def search():
 
     return render_template('search_results.html', albums=results)
 
+# Edit review route
+@app.route('/edit_review/<album_id>', methods=["GET", "Post"])
+def edit_review(album_id):
+    spotify_data = get_album(album_id)
+    reviews = get_reviews(album_id)
+
+    if request.method == "POST":
+        rating = float(request.form.get("rating"))
+        review = request.form.get("review")
+
+        conn = sqlite3.connect('reviews.db')
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            UPDATE reviews
+            SET rating = ?, review = ?
+            WHERE album_id = ?
+        """, (rating, review, album_id))
+
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for('ranking', album_id=album_id))
+
+    color = get_dom_color(spotify_data['art'])
+    color = f"rgb{color}"
+
+    return render_template('ranking_form.html', spotify=spotify_data, color=color, reviews=reviews, editing=True)
+
+# Delete review route
 @app.route('/delete_review/<album_id>')
 def delete_review(album_id):
     print("Delete route hit:", album_id)

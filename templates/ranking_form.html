@@ -17,11 +17,17 @@
         }
 
         .review-card {
-            background: rgba(0, 0, 0, 0.65);
+            width: 450px;
+            min-height: 500px;
+
             padding: 30px;
+
+            background: rgba(0, 0, 0, 0.65);
             border-radius: 20px;
-            width: 400px;
-            margin: 50px auto;
+
+            text-align: left;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
         img {
@@ -37,6 +43,131 @@
             border-radius: 10px;
             border: none;
             cursor: pointer;
+        }
+
+        .review-page {
+            width: 1250px;
+            max-width: 90%;
+            margin: 60px auto;
+
+            display: flex;
+            align-items: flex-start;
+            gap: 100px;
+        }
+
+        .album-info {
+            width: 500px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .review-album-art {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .review-card {
+            width: 450px;
+            min-height: 500px;
+
+            padding: 30px;
+
+            background: rgba(0, 0, 0, 0.65);
+            border-radius: 20px;
+
+            text-align: left;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .review-card h2 {
+            margin-bottom: 25px;
+        }
+
+        .review-card label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .review-card textarea {
+            width: 100%;
+            min-height: 180px;
+
+            padding: 12px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: #222;
+            color: white;
+
+            font-family: inherit;
+            font-size: 1rem;
+
+            resize: vertical;
+
+            margin-bottom: 20px;
+        }
+
+        .review-card textarea:focus {
+            outline: 2px solid #555;
+        }
+
+        .review-card button {
+            width: 100%;
+
+            padding: 12px;
+
+            background: #d4d4d4;
+            color: #111;
+
+            border: none;
+            border-radius: 10px;
+
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 1rem;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .review-card button:hover {
+            background: white;
+            transform: scale(1.02);
+        }
+
+        .album-info h1 {
+            margin-bottom: 8px;
+        }
+
+        .album-info h2 {
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 800px) {
+
+            .review-page {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .album-info,
+            .review-card {
+                width: 100%;
+                max-width: 500px;
+            }
+
+            .review-album-art {
+                width: 100%;
+                height: auto;
+            }
+
         }
     </style>
 
@@ -56,61 +187,135 @@
 
     <div class="page-container">
 
-        <div class="review-card">
+        <div class="review-page">
 
-            <h1>{{ spotify.name }}</h1>
+    <!-- LEFT: ALBUM INFORMATION -->
 
-            <h2>{{ spotify.artist }}</h2>
+            <div class="album-info">
 
-            <img src="{{ spotify.art }}" width="300">
-
-            <p>Released: {{ spotify.release_date }}</p>
-
-            <p>Total Tracks: {{ spotify.total_tracks }}</p>
-
-            <a href="{{ spotify.url }}" target="_blank" class="spotify-button">
-                    <i class="fa-brands fa-spotify"></i>
-                    Open in Spotify
-            </a>
-
-            <hr>
-
-            <h2>Rate This Album</h2>
-
-
-            <form method="POST">
-                <label>Rating (out of 5):</label>
-                <br>
-                <input
-                    type="number"
-                    name="rating"
-                    min="0.5"
-                    max="5"
-                    step="0.5"
-                    required
+                <img
+                    src="{{ spotify.art }}"
+                    class="review-album-art"
                 >
 
-                <br><br>
+                <h1>{{ spotify.name }}</h1>
 
-                <label>Review:</label>
-                <br>
+                <h2>{{ spotify.artist }}</h2>
 
-                <textarea
-                    name="review"
-                    rows="5"
-                    cols="40"
-                    placeholder="Write your review here..."
-                ></textarea>
+                <p>Released: {{ spotify.release_date }}</p>
 
-                <br><br>
+                <p>Total Tracks: {{ spotify.total_tracks }}</p>
 
-                <button type="submit">Save Review</button>
+                <a
+                    href="{{ spotify.url }}"
+                    target="_blank"
+                    class="spotify-button"
+                >
+                    Open in Spotify
+                </a>
 
-            </form>
+            </div>
+
+            <div class="review-card">
+
+                <h2>Rate This Album</h2>
+
+                <form method="POST">
+
+                    <div class="rating-container">
+
+                        <div class="rating-stars">
+
+                            {% for i in range(1, 6) %}
+
+                                <span
+                                    class="rating-star"
+                                    data-rating="{{ i }}"
+                                >★</span>
+
+                            {% endfor %}
+
+                        </div>
+
+                        <input
+                            type="hidden"
+                            name="rating"
+                            id="rating"
+                            value="{% if editing and reviews %}{{ reviews[0][0] }}{% else %}0{% endif %}"
+                        >
+
+                    </div>
+
+
+                    <label for="review">Review:</label>
+
+                    <textarea
+                        name="review"
+                        id="review"
+                        rows="8"
+                        placeholder="Write your review here..."
+                    >{% if editing and reviews %}{{ reviews[0][1] }}{% endif %}</textarea>
+
+
+                    <button type="submit">
+                        {% if editing %}
+                            Save Changes
+                        {% else %}
+                            Save Review
+                        {% endif %}
+                    </button>
+
+                </form>
+
+            </div>
 
         </div>
 
     </div>
+
+    <script>
+        const stars = document.querySelectorAll(".rating-star");
+        const ratingInput = document.getElementById("rating");
+
+        let currentRating = parseFloat(ratingInput.value) || 0;
+
+        stars.forEach(star => {
+            star.addEventListener("click", () => {
+                const rating = parseInt(star.dataset.rating);
+
+                if (currentRating === rating) {
+                    currentRating = rating - 0.5;
+                } else {
+                    currentRating = rating;
+                }
+
+                ratingInput.value = currentRating;
+
+                updateStars();
+            });
+        });
+
+        function updateStars() {
+            stars.forEach(star => {
+                const rating = parseInt(star.dataset.rating);
+
+                star.classList.remove("active");
+                star.classList.remove("half");
+
+                if (rating <= Math.floor(currentRating)) {
+                    star.classList.add("active");
+                }
+            });
+
+            if (currentRating % 1 !== 0) {
+                const halfStar = stars[Math.ceil(currentRating) - 1];
+
+                halfStar.classList.add("half");
+            }
+        }
+
+        updateStars();
+    </script>
 
 </body>
 </html>

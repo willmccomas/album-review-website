@@ -44,6 +44,12 @@ p {
     overflow-wrap: normal;
 }
 
+.album-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
 .delete-button {
     display: inline-block;
     margin-top: 15px;
@@ -65,6 +71,27 @@ p {
     transform: scale(1.05);
 }
 
+.edit-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 18px;
+
+    background-color: #3178d5;
+    color: white;
+    
+    border: none;
+    text-decoration: none;
+    border-radius: 25px;
+
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.edit-button:hover {
+    background-color: #2789b7;
+    transform: scale(1.05);
+}
+
 .spotify-button {
     display: inline-block;
     margin-top: 15px;
@@ -83,6 +110,43 @@ p {
 .spotify-button:hover {
     background-color: #1ed760;
     transform: scale(1.05);
+}
+
+.rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.rating-star {
+    font-size: 2.5rem;
+    color: #555;
+    cursor: pointer;
+}
+
+.rating-star.active {
+    color: white !important;
+}
+
+.rating-star.half {
+    color: #555;
+    background: linear-gradient(
+        to right,
+        white 50%,
+        #555 50%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.rating-star:hover {
+    transform: scale(1.1);
+}
+
+.rating-value {
+    margin: 5px 0;
 }
 
 .album-grid {

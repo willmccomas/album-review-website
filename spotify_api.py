@@ -14,8 +14,6 @@ spotify = spotipy.Spotify(
 )
 
 def get_album(album_id):
-
-    print("Get ALbum Received", album_id)
     album = spotify.album(album_id)
 
     album_name = album['name']
