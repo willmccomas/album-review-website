@@ -14,6 +14,8 @@ spotify = spotipy.Spotify(
 )
 
 def get_album(album_id):
+
+    print("Get ALbum Received", album_id)
     album = spotify.album(album_id)
 
     album_name = album['name']
@@ -37,11 +39,21 @@ def get_album(album_id):
 def search_albums(query):
     results = spotify.search(q=query, type="album", limit=10)
     album_results = results['albums']['items']
+    seen = set()
     albums = []
 
     for album in album_results:
         album_name = album['name']
         album_artist = format_artists(album["artists"])
+
+        # Stops duplicate albums (ex. clean and explicit versions)
+        key = (album_name.lower(), album_artist.lower())
+
+        if key in seen:
+            continue
+
+        seen.add(key)
+
         album_release_date = album['release_date']
         album_total_tracks = album['total_tracks']
         album_url = album['external_urls']['spotify']

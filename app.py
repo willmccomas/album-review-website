@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, url_for, redirect
 from spotify_api import get_album, search_albums
 from image_colors import get_dom_color
 from database import get_all_reviews, save_review, get_reviews
+import sqlite3
 
 def star_rating(rating):
     rating = float(rating)
@@ -72,6 +73,23 @@ def search():
     results = search_albums(query)
 
     return render_template('search_results.html', albums=results)
+
+@app.route('/delete_review/<album_id>')
+def delete_review(album_id):
+    print("Delete route hit:", album_id)
+    conn = sqlite3.connect('reviews.db')
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "DELETE FROM reviews WHERE album_id = ?",
+        (album_id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for('all_rankings'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

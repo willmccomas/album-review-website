@@ -55,7 +55,7 @@ def get_all_reviews():
     conn = sqlite3.connect('reviews.db')
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT name, artist, art, release_date, rating, review
+        SELECT album_id, name, artist, art, release_date, rating, review
         FROM reviews
         ORDER BY release_date DESC
     """)

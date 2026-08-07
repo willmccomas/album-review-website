@@ -38,6 +38,53 @@ p {
     font-weight: 400;
 }
 
+.album-header {
+    width: 500px;
+    max-width: 100%;
+    overflow-wrap: normal;
+}
+
+.delete-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 18px;
+
+    background-color: #8b0000;
+    color: white;
+    
+    border: none;
+    text-decoration: none;
+    border-radius: 25px;
+
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.delete-button:hover {
+    background-color: #b00000;
+    transform: scale(1.05);
+}
+
+.spotify-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 18px;
+
+    background-color: #1db954;
+    color: black;
+
+    text-decoration: none;
+    border-radius: 25px;
+
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.spotify-button:hover {
+    background-color: #1ed760;
+    transform: scale(1.05);
+}
+
 .album-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -122,4 +169,5 @@ nav a:hover {
     color: #ffffff;
     opacity: 0.7;
     transition: opacity 0.3s ease;
+    transform: scale(1.05);
 }

@@ -3,6 +3,7 @@
         <title>{{ spotify.name }}</title>
 
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
     </head>
 
     <body>
@@ -19,16 +20,30 @@
 
         <div class="page-container">
 
-            <h1>{{ spotify.name }}</h1>
+            <img src="{{ spotify.art }}" width="500">
 
-            <h2>{{ spotify.artist }}</h2>
+            <div class="album-header">
+                <h2>{{ spotify.name }} by {{ spotify.artist }}</h2>
+            </div>
 
-            <h3>Your Review</h3>
+            <h3>Release Date: {{ spotify.release_date }}</h3>
 
             {% for review in reviews %}
-                <p>Rating {{ review[0] }}/5</p>
+                <h2 class="stars">
+                        {{ star_rating(review[0]) }}
+                </h2>
+                <a href="{{ spotify.url }}" target="_blank" class="spotify-button">
+                    <i class="fa-brands fa-spotify"></i>
+                    Open in Spotify
+                </a>
                 <p>{{ review[1] }}</p>
+
+                <a href="{{ url_for('delete_review', album_id=spotify.id) }}"
+                    onclick="return confirm('Are you sure you want to delete this review?');">
+                    <button class="delete-button">Delete Review</button>
+                </a>
             {% endfor %}
+
         </div>
 
     </body>

@@ -24,10 +24,13 @@
                 {% for album in albums %}
 
                 <div class="album-card">
-                    <img src="{{ album[2] }}" width="200">
+
+                    <a href="{{ url_for('ranking', album_id=album[0]) }}">
+                        <img src="{{ album[3] }}" width="200">
+                    </a>
 
                     <h2 class="stars">
-                        {{ star_rating(album[4]) }}
+                        {{ star_rating(album[5]) }}
                     </h2>
                 
                 </div>
